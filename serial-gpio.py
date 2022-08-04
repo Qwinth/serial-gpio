@@ -11,29 +11,28 @@ class GPIO:
     
     def __init__(self, port):
         self.ser = serial.Serial(port)
-        time.sleep(0.05)
     
-    def pinMode(self, pin, mode):
+    def pinMode(self, pin, mode, t = 0.05):
         self.ser.write(f"pm,{pin},{mode}".encode())
-        time.sleep(0.05)
+        time.sleep(t)
 
     
     def digitalWrite(self, pin, value, t = 0.03):
         self.ser.write(f"dw,{pin},{value}".encode())
         time.sleep(t)
 
-    def digitalRead(self, pin):
+    def digitalRead(self, pin, t = 0.05):
         self.ser.write(f"dr,{pin}".encode())
-        time.sleep(0.05)
+        time.sleep(t)
         return int(self.ser.readline())
 
     def analogWrite(self, pin, value, t = 0.03):
         self.ser.write(f"aw,{pin},{value}".encode())
         time.sleep(t)
 
-    def analogRead(self, pin):
+    def analogRead(self, pin, t = 0.05):
         self.ser.write(f"ar,{pin}".encode())
-        time.sleep(0.05)
+        time.sleep(t)
         return int(self.ser.readline().decode())
     
     def close(self):
